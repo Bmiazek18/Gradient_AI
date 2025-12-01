@@ -35,12 +35,12 @@ Po zakończeniu treningu wyświetlane są wykresy:
 ### 1. Zbieżność Modelu: Mean Squared Error (MSE) na przeskalowanych danych
 
 
-![MSE] (assets/Wykres_1.png)
+![MSE](assets/Wykres_1.png)
 
 * **Interpretacja:** Wykres pokazuje, jak błąd (Loss) maleje wraz z kolejnymi epokami, co świadczy o uczeniu się modelu. Porównanie strat na zbiorze treningowym i testowym pozwala ocenić, czy nie występuje nadmierne dopasowanie (overfitting).
 
 ### 2. Przewidywane vs Rzeczywiste ABV w skali procentowej
 
-![Predecit ABV] (assets/Wykres_2.png)
+![Predecit ABV](assets/Wykres_2.png)
 
 * **Interpretacja:** Punkty blisko czerwonej, przerywanej linii oznaczają dobrą precyzję predykcji. Rozrzut wokół tej linii wskazuje na błąd przewidywania.
