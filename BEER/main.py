@@ -18,7 +18,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 try:
     dataset_dir = kagglehub.dataset_download("jtrofe/beer-recipes")
-    csv_filename = 'recipeData.csv'
+    csv_filename = '../recipeData.csv'
     full_path = os.path.join(dataset_dir, csv_filename)
     data_df = pd.read_csv(full_path, encoding="latin-1")
 except Exception as e:
