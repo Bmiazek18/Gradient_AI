@@ -6,14 +6,13 @@ import matplotlib.pyplot as plt
 
 BATCH_SIZE = 128
 LEARNING_RATE = 0.001
-EPOCHS = 25
+EPOCHS = 30
 NUM_CLASSES = 47
 EMNIST_MAPPING = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                   'a', 'b', 'd', 'e', 'f', 'g', 'h', 'n', 'r', 't']
 transform = torchvision.transforms.Compose([
     torchvision.transforms.ToTensor(),
-    torchvision.transforms.Lambda(lambda x: x.transpose(1, 2).flip(1)),
     torchvision.transforms.RandomAffine(degrees=15, translate=(0.1,0.1), scale=(0.9,1.1))
 ])
 
@@ -34,12 +33,19 @@ def visualize_predictions(model, mapping, dataset, device, num_correct=3, num_wr
     wrong_samples = []
 
     with torch.no_grad():
-        for i in range(len(dataset)):
+
+        max_search = min(len(dataset), 2000)
+
+        for i in range(max_search):
             if len(correct_samples) >= num_correct and len(wrong_samples) >= num_wrong:
                 break
 
             image, true_label = dataset[i]
-            output = model(image.unsqueeze(0).to(device))
+
+
+            input_image = image.unsqueeze(0).to(device)
+
+            output = model(input_image)
             pred_label = output.argmax(dim=1).item()
 
             if pred_label == true_label and len(correct_samples) < num_correct:
@@ -51,29 +57,37 @@ def visualize_predictions(model, mapping, dataset, device, num_correct=3, num_wr
     num_samples = len(all_samples)
 
     if num_samples == 0:
-        print("No predictions to display.")
+        print("Nie znaleziono żadnych próbek do wyświetlenia. Spróbuj zwiększyć max_search w kodzie.")
         return
 
-    fig, axes = plt.subplots(1, num_samples, figsize=(3*num_samples, 3))
 
-    # Ensure axes is iterable
+    fig, axes = plt.subplots(1, num_samples, figsize=(3 * num_samples, 4))
+
+
+    plt.subplots_adjust(top=0.8)
+
     if num_samples == 1:
         axes = [axes]
 
+
+    plt.suptitle('Model Predictions (Red=Wrong, Green=Correct)', y=1.05, fontsize=14)
+
     for idx, (image, true_label, pred_label) in enumerate(all_samples):
         ax = axes[idx]
-        ax.imshow(image.squeeze().cpu().numpy(), cmap='gray')
+
+        image_to_display = image.squeeze().cpu().numpy().T
+
+        ax.imshow(image_to_display, cmap='gray')
         true_char = mapping[true_label]
         pred_char = mapping[pred_label]
 
         if true_label == pred_label:
-            ax.set_title(f'True: {true_char}\nPred: {pred_char}', color='green')
+            ax.set_title(f'Prawdziwa: {true_char}\nPredykcja: {pred_char}', color='green')
         else:
-            ax.set_title(f'True: {true_char}\nPred: {pred_char}', color='red')
+            ax.set_title(f'Prawdziwa: {true_char}\nPredykcja: {pred_char}', color='red')
+
         ax.axis('off')
 
-    plt.tight_layout()
-    plt.suptitle('Model Predictions (Red=Wrong, Green=Correct)', y=1.1, fontsize=14)
     plt.show()
 
 class EMNISTClassifier(nn.Module):
@@ -137,7 +151,6 @@ for epoch in range(EPOCHS):
     avg_train_loss = running_loss / len(train_loader)
     train_acc = 100 * correct_train / total_train
 
-    # ---- Validation / Test ----
     model.eval()
     running_val_loss = 0.0
     correct_val = 0
@@ -155,7 +168,6 @@ for epoch in range(EPOCHS):
     avg_val_loss = running_val_loss / len(test_loader)
     val_acc = 100 * correct_val / total_val
 
-    # ---- Zapisywanie metryk ----
     train_losses.append(avg_train_loss)
     val_losses.append(avg_val_loss)
     train_accuracies.append(train_acc)
