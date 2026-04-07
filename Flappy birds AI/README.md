@@ -30,7 +30,7 @@ W tej fazie wejściem dla sieci neuronowej będzie surowy obraz klatek gry (pixe
 ├── assets/             # Grafiki (.png)
 ├── game.py             # Główny silnik gry
 └── README.md           # Dokumentacja
-
+```
 
 ## 📜 Podziękowania
 
