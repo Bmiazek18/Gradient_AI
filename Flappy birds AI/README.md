@@ -7,13 +7,30 @@ Celem projektu jest stworzenie AI, które nauczy się nawigować ptakiem pomięd
 
 ## 📈 Etapy Rozwoju
 
-### Faza 1: Klasyczne Reinforcement Learning (RL) - *W trakcie*
-Agent podejmuje decyzje na podstawie wektora cech (state vector) wyciągniętego bezpośrednio z silnika gry:
-* Pionowa prędkość ptaka.
-* Dystans poziomy do najbliższej luki w rurach.
-* Różnica wysokości między ptakiem a środkiem luki.
+### Faza 1: Klasyczne Reinforcement Learning (RL) 
+Agent podejmuje decyzje na podstawie wektora cech (state vector) wyciągniętego bezpośrednio z silnika gry.
 
-### Faza 2: Deep Q-Learning z CNN - *Planowane*
+#### 🧠 Jak działa Q-Learning w tym projekcie?
+Używamy algorytmu **Tabular Q-Learning**. Agent buduje tablicę (słownik), w której przechowuje tzw. wartości Q dla każdej pary **stan-akcja**. 
+
+
+* **Stan (State):** Pionowa prędkość ptaka, dystans poziomy do luki oraz różnica wysokości między ptakiem a luką.
+* **Akcja (Action):** Skok (Flap) lub Opadanie (Idle).
+* **Nagroda (Reward):** Agent otrzymuje punktową karę za kolizję i nagrodę za każdą ramkę przetrwania oraz pokonanie rury.
+
+#### ⚠️ Minusy i ograniczenia Q-Learningu
+Mimo że ta metoda pozwala na szybkie osiągnięcie wysokich wyników, posiada istotne wady:
+* **Problem wymiarowości (Curse of Dimensionality):** Każdy nowy parametr stanu drastycznie zwiększa rozmiar Q-tabeli, co prowadzi do ogromnego zużycia pamięci.
+* **Brak generalizacji:** Agent nie "rozumie" zasad fizyki; uczy się konkretnych kombinacji liczb. Jeśli znajdzie się w minimalnie nowej sytuacji, której nie ma w tabeli, podejmie losową (często błędną) decyzję.
+* **Konieczność dyskretyzacji:** Ponieważ współrzędne w grze są ciągłe, musimy je zaokrąglać do koszyków (binning). Zbyt duże koszyki powodują utratę precyzji, a zbyt małe – nieskończenie długą naukę.
+* **Ręczna ekstrakcja cech:** To my musimy powiedzieć AI, co jest ważne (np. odległość od rury). Agent nie widzi gry jako całości.
+
+
+#### 📺 Demo
+Poniżej nagranie prezentujące agenta podejmującego decyzje w czasie rzeczywistym:
+![Demo gry](assets/ai_flappy_bird.gif)
+
+### Faza 2: Deep Q-Learning z CNN - *W trakcie*
 W tej fazie wejściem dla sieci neuronowej będzie surowy obraz klatek gry (pixels). 
 * **Architektura:** Sieć splotowa (CNN) do ekstrakcji cech wizualnych.
 * **Technologia:** PyTorch.
@@ -31,7 +48,7 @@ W tej fazie wejściem dla sieci neuronowej będzie surowy obraz klatek gry (pixe
 ├── game.py             # Główny silnik gry
 └── README.md           # Dokumentacja
 ```
-![Demo gry](assets/ai_flappy_bird.gif)
+
 ## 📜 Podziękowania
 
 Pierwsza wersja silnika gry oraz podstawowa logika obiektów zostały oparte na tutorialu:
