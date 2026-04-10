@@ -30,6 +30,18 @@ Mimo że ta metoda pozwala na szybkie osiągnięcie wysokich wyników, posiada i
 Poniżej nagranie prezentujące agenta podejmującego decyzje w czasie rzeczywistym:
 ![Demo gry](assets/ai_flappy_bird.gif)
 
+#### 🗺️ Wizualizacja Strategii (Policy Map)
+Poniższa heatmapa przedstawia wyuczoną politykę agenta. Kolory reprezentują decyzję podjętą przez AI w zależności od jego prędkości pionowej oraz odległości od środka luki w rurze:
+
+* **Zielony:** Decyzja o skoku (Flap).
+* **Czerwony:** Pozostanie w locie swobodnym (Fall).
+* **Szary:** Stany nieodkryte (jeszcze nie odwiedzone przez agenta).
+
+![Agent Strategy Heatmap](assets/strategy_heatmap.png)
+
+Wizualizacja ta potwierdza, że agent nauczył się "bezpiecznej strefy" i reaguje skokiem, gdy znajduje się poniżej optymalnego toru lotu.
+
+
 ### Faza 2: Deep Q-Learning z CNN - *W trakcie*
 W tej fazie wejściem dla sieci neuronowej będzie surowy obraz klatek gry (pixels). 
 * **Architektura:** Sieć splotowa (CNN) do ekstrakcji cech wizualnych.
