@@ -31,7 +31,7 @@ W tej fazie wejściem dla sieci neuronowej będzie surowy obraz klatek gry (pixe
 ├── game.py             # Główny silnik gry
 └── README.md           # Dokumentacja
 ```
-
+![Demo gry](assets/ai_flappy_bird.gif)
 ## 📜 Podziękowania
 
 Pierwsza wersja silnika gry oraz podstawowa logika obiektów zostały oparte na tutorialu:
