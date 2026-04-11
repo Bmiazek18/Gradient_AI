@@ -11,32 +11,28 @@ Głównym celem projektu było stworzenie modelu **Explainable AI (XAI)** – cz
 Obecny model z obniżonym progiem decyzyjnym (0.4) osiąga **72% ogólnej dokładności**, ale co najważniejsze w kontekście medycznym – wykazuje bardzo wysoką czułość dla pacjentów chorych.
 
 Oto szczegółowy raport wygenerowany przez model na zbiorze testowym:
-
-```text
-              precision    recall  f1-score   support
-
-           0       0.86      0.69      0.77       100
-           1       0.57      0.79      0.66        52
-
-    accuracy                           0.72       152
-   macro avg       0.72      0.74      0.71       152
-weighted avg       0.76      0.72      0.73       152
-```
+| Klasa / Metryka | Precision (Precyzja) | Recall (Czułość) | F1-score | Support (Próbki) |
+| :--- | :---: | :---: | :---: | :---: |
+| **0 (Zdrowi)** | 0.86 | 0.69 | 0.77 | 100 |
+| **1 (Chorzy)** | 0.57 | 0.79 | 0.66 | 52 |
+| **Accuracy (Dokładność ogólna)** | | | **0.72** | 152 |
+| **Macro avg (Średnia makro)** | 0.72 | 0.74 | 0.71 | 152 |
+| **Weighted avg (Średnia ważona)** | 0.76 | 0.72 | 0.73 | 152 |
 
 ### 🧠 Logika Podejmowania Decyzji
 Poniższe drzewo pokazuje, jakie warunki muszą zostać spełnione, aby model sklasyfikował pacjenta jako zagrożonego cukrzycą. Model został ograniczony do głębokości 4, aby uniknąć przeuczenia i zachować czytelność dla człowieka.
 
-![Logika Drzewa Decyzyjnego](tree_logic.png)
+![Logika Drzewa Decyzyjnego](assets/tree_logic.png)
 
 ### 📊 Skuteczność (Macierz Pomyłek)
 Macierz pokazuje bilans trafnych diagnoz oraz błędów w przejrzystej formie wizualnej, ilustrując kompromis między precyzją a czułością, który osiągnęliśmy dzięki zmianie progu decyzyjnego.
 
-![Macierz Pomyłek](confusion_matrix.png)
+![Macierz Pomyłek](assets/confusion_matrix.png)
 
 ### 🔑 Najważniejsze Parametry
 Wykres przedstawia, które dane medyczne miały największy wpływ na werdykt modelu. Pozwala to na optymalizację badań – wiemy, na które parametry (np. Glukoza, BMI) lekarz powinien zwrócić szczególną uwagę.
 
-![Istotność Cech](features_importance.png)
+![Istotność Cech](assets/features_importance.png)
 
 ---
 
