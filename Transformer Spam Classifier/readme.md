@@ -7,7 +7,7 @@ Zaawansowany klasyfikator treści typu Spam/Ham wykorzystujący dedykowaną arch
 ## 🧠 Głęboka Architektura i Działanie
 
 Model implementuje architekturę typu "Encoder-only", optymalizowaną pod kątem ekstrakcji cech semantycznych z krótkich tekstów.
-![Architektura](assets/architecture.png)
+![Architektura](assets/encoder.png)
 
 ### 1. Mechanizm Self-Attention (Notacja Einsteina)
 Sercem modelu jest autorska implementacja atencji, która pozwala każdemu słowu "patrzeć" na pozostałe słowa w zdaniu. Wykorzystujemy do tego transformacje:
